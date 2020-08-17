@@ -9,10 +9,19 @@ const loadLyrics = (artist, title) =>{
     .then(response => response.json())
     .then(data =>{
         let titleDisplay = unescape(title);
-        let artistDisplay = unescape(artist)
+        let artistDisplay = unescape(artist);
         document.getElementById('lyrics-artist-display').innerText = artistDisplay;
         document.getElementById('lyrics-song-display').innerText = titleDisplay;
-        document.getElementById('lyrics-display').innerText = data.lyrics;
+        if(data.lyrics===undefined){
+            document.getElementById('lyrics-display').innerText = 'lyrics not found in the vault';
+        }
+        else{
+            document.getElementById('lyrics-display').innerText = data.lyrics;
+        }
+        
+    })
+    .catch(error => {
+        console.log(error);
     })
     document.getElementById('lyrics-section').style.display = 'block';
 }
@@ -48,6 +57,9 @@ const loadArtistAndSong = (song) => {
         </div>`;
         document.getElementById('display-result').style.display = 'block';
         }
+    })
+    .catch(error => {
+        console.log(error);
     })
 }
 
